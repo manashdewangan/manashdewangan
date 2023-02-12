@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>News Report</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0%;
+        }
+
+        .container1 div h1 {
+            font-size: 25px;
+            color: rgb(255, 252, 47);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container1 div p {
+            padding: 0;
+            margin: 0;
+            color: white;
+            font-family: sans-serif;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #0e0e0e;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: pointer;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            margin-right: 20px;
+        }
+
+        .menu li a:hover {
+            font-size: 19px;
+            color: rgb(254, 255, 174);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: all .3s ease;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 767px) {
+            .menu {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 24px;
+                color: white;
+            }
+        }
+
+        .container h2 {
+            font-size: 40px;
+            font-family: monospace;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            background-color: #edfdec;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            /* padding: 10px 20px;
+            font-size: 16px;
+            background-color: lightblue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px; */
+
+            display: inline-block;
+            background-color: orange;
+            color: white;
+            font-size: 20px;
+            padding: 6px 50px;
+            margin-top: 25px;
+            border-radius: 6px;
+            border: 2px solid orange;
+            transition: all .3s ease;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+
+        }
+
+        .news-section {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 2rem auto;
+        }
+
+        .news-item {
+            width: 90%;
+            background-color: #ffbc00;
+            text-align: center;
+            padding: 2rem;
+            transition: all 0.5s ease-in-out;
+            font-family: monospace;
+            font-size: 15px;
+        }
+
+        .news-item:hover {
+            /* transform: scale(1.1); */
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container1">
+        <div>
+            <h1>NEWSII</h1>
+            <p>News at your door step</p>
+        </div>
+        <input type="checkbox" class="menu-toggle">
+        <nav>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <label for="menu-toggle" class="menu-toggle">&#9776;</label>
+    </div>
+
+    <div class="container">
+        <h2>Todays Headlines</h2>
+        <div class="news-item1">
+            <button id="getNews1">Get Todays Headlines</button>
+            <div id="news-section1" class="news-section" 2></div>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Get Indian News</h2>
+        <div class="news-item2">
+            <button id="getNews2">Get Todays Headlines</button>
+            <div id="news-section2" class="news-section2"></div>
+        </div>
+    </div>
+
+
+    <script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
+
+        menuToggle.addEventListener("change", function () {
+            menu.classList.toggle("show");
+        });
+
+        // ?country news
+        {
+            const API_KEY = "2b8c103440cf4a98acfb5825a53ffc9a";
+            const newsSection = document.getElementById("news-section1");
+            const getNewsBtn = document.getElementById("getNews1");
+
+            getNewsBtn.addEventListener("click", function () {
+                const API_ENDPOINT = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2b8c103440cf4a98acfb5825a53ffc9a`;
+
+                fetch(API_ENDPOINT)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const articles = data.articles;
+                        let newsHTML = "";
+
+                        articles.forEach((article) => {
+                            newsHTML += `
+                <h3>${article.title}</h3>
+                <p>${article.description}</p>
+                <hr>
+              `;
+                        });
+
+                        newsSection.innerHTML = newsHTML;
+                    })
+                    .catch((error) => {
+                        newsSection.innerHTML = "<p>Could not retrieve news data.</p>";
+                    });
+            });
+        }
+
+        // indian news
+
+        const API_KEY = "2b8c103440cf4a98acfb5825a53ffc9a";
+        const newsSection = document.getElementById("news-section2");
+        const getNewsBtn = document.getElementById("getNews2");
+
+        getNewsBtn.addEventListener("click", function () {
+            const API_ENDPOINT = `https://newsapi.org/v2/everything?q=keyword&apiKey=2b8c103440cf4a98acfb5825a53ffc9a`;
+
+            fetch(API_ENDPOINT)
+                .then((response) => response.json())
+                .then((data) => {
+                    const articles = data.articles;
+                    let newsHTML = "";
+
+                    articles.forEach((article) => {
+                        newsHTML += `
+                <h3>${article.title}</h3>
+                <p>${article.description}</p>
+                <hr>
+              `;
+                    });
+
+                    newsSection.innerHTML = newsHTML;
+                })
+                .catch((error) => {
+                    newsSection.innerHTML = "<p>Could not retrieve news data.</p>";
+                });
+        });
+    </script>
+</body>
+
+</html>
