@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @manashdewangan
 - 👀 I’m interested in making computer science projects
-- 🌱 I’m currently learning frontend development 
+- 🌱 I’m currently learning Full Stack Web Development 
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach, me here is my email you can contact me from here " manashdewangan123@gmail.com "
 
